@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-page">
+    <form class="auth-card" method="POST">
+        {% csrf_token %}
+        <p class="eyebrow">Connexion</p>
+        <h1>Bienvenue</h1>
+
+        <label for="username">Nom d'utilisateur</label>
+        <input id="username" type="text" name="username" required>
+
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" name="password" required>
+
+        <button class="btn primary full" type="submit">Se connecter</button>
+        <p class="form-note">Pas encore de compte ? <a href="{% url 'register' %}">Inscription</a></p>
+    </form>
+</section>
+{% endblock %}

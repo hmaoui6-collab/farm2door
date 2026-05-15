@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-page">
+    <form class="auth-card" method="POST">
+        {% csrf_token %}
+        <p class="eyebrow">Suppression</p>
+        <h1>Supprimer {{ product.name }} ?</h1>
+        <p class="form-note">Cette action retirera le produit du catalogue.</p>
+        <button class="btn danger full" type="submit">Supprimer</button>
+        {% if back_url %}
+            <a class="btn secondary full" href="{% url back_url %}">Annuler</a>
+        {% else %}
+            <a class="btn secondary full" href="{% url 'dashboard' %}">Annuler</a>
+        {% endif %}
+    </form>
+</section>
+{% endblock %}

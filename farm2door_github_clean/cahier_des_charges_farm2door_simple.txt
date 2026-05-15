@@ -1,0 +1,191 @@
+CAHIER DES CHARGES - FARM2DOOR
+
+Projet : Farm2Door
+Type : Projet de Fin d'Annee
+Domaine : Marketplace agricole locale
+Technologies : Django, Python, SQLite, HTML, CSS
+
+1. INTRODUCTION
+
+Farm2Door est une application web qui met en relation les agriculteurs locaux et les clients. Le but est de faciliter la vente directe des produits agricoles frais avec une interface simple pour le client et un espace de gestion pour l'agriculteur.
+
+Le client peut consulter les produits, ajouter au panier, choisir un mode de paiement, finaliser une commande et telecharger un bon d'achat PDF. L'agriculteur peut ajouter ses produits, gerer les prix, le stock, les images, consulter les commandes recues et suivre ses revenus.
+
+2. CONTEXTE DU PROJET
+
+Les petits producteurs agricoles ont souvent des difficultes a vendre directement leurs produits en ligne. Les clients cherchent de leur cote une solution simple pour acheter des produits frais, connaitre les prix, verifier la disponibilite et commander rapidement.
+
+Farm2Door propose une solution locale de vente directe entre agriculteurs et clients.
+
+3. PROBLEMATIQUE
+
+Comment creer une application web permettant aux agriculteurs de publier leurs produits, aux clients de commander facilement, a l'administrateur de suivre l'activite et au systeme de generer une preuve d'achat apres chaque commande ?
+
+4. OBJECTIFS
+
+- Creer une page d'accueil claire.
+- Afficher un catalogue de produits agricoles.
+- Permettre l'inscription et la connexion.
+- Gerer deux roles : client et agriculteur.
+- Permettre aux agriculteurs d'ajouter, modifier et supprimer des produits.
+- Permettre aux clients de gerer un panier.
+- Ajouter une etape de paiement simule.
+- Generer un bon d'achat PDF.
+- Mettre a jour le stock apres chaque commande.
+- Fournir un historique des commandes au client.
+- Fournir un suivi des commandes recues a l'agriculteur.
+- Fournir un tableau de bord administrateur.
+
+5. ACTEURS
+
+Client :
+Le client consulte les produits, ajoute au panier, choisit le paiement, finalise une commande, consulte son historique et telecharge ses bons d'achat.
+
+Agriculteur :
+L'agriculteur ajoute ses produits, gere les images, les prix et les stocks, consulte les commandes recues et suit ses revenus.
+
+Administrateur :
+L'administrateur suit les utilisateurs, produits, commandes et revenus. Il peut aussi gerer les donnees depuis Django Admin.
+
+6. BESOINS FONCTIONNELS
+
+Authentification :
+- Creation de compte.
+- Connexion.
+- Deconnexion.
+- Choix du role client ou agriculteur.
+
+Gestion des produits :
+- Afficher les produits.
+- Ajouter un produit.
+- Modifier un produit.
+- Supprimer un produit.
+- Ajouter une image.
+- Gerer le stock.
+
+Panier :
+- Ajouter un produit au panier.
+- Augmenter ou diminuer la quantite.
+- Retirer un produit.
+- Calculer le total.
+- Verifier le stock.
+
+Paiement :
+- Paiement a la livraison.
+- Paiement par carte bancaire simule.
+- Saisie du nom sur la carte.
+- Saisie du numero de carte.
+- Saisie de la date d'expiration.
+- Saisie du CVC.
+
+Commandes :
+- Creation d'une commande.
+- Enregistrement des produits commandes.
+- Mise a jour du stock.
+- Page de confirmation.
+- Historique des commandes client.
+- Commandes recues pour l'agriculteur.
+
+Bon d'achat PDF :
+- Generation apres finalisation.
+- Numero de commande.
+- Nom du client.
+- Date.
+- Mode de paiement.
+- Statut du paiement.
+- Liste des produits.
+- Quantites.
+- Prix.
+- Total.
+
+Dashboard client :
+- Total depense.
+- Commandes payees.
+- Paiements en attente.
+- Historique des commandes.
+- Telechargement du bon PDF.
+
+Dashboard agriculteur :
+- Nombre de produits.
+- Nombre de commandes.
+- Revenus.
+- Produit le plus vendu.
+- Alertes stock faible.
+- Liste des produits.
+- Commandes recues.
+
+Dashboard administrateur :
+- Nombre total d'utilisateurs.
+- Nombre de clients.
+- Nombre d'agriculteurs.
+- Nombre de produits.
+- Nombre de commandes.
+- Revenu total.
+- Dernieres commandes.
+
+7. BESOINS NON FONCTIONNELS
+
+- Interface simple et claire.
+- Application facile a utiliser.
+- Pages protegees selon le role.
+- Application rapide en local.
+- Code organise selon la structure Django.
+- Projet facile a presenter.
+
+8. TECHNOLOGIES UTILISEES
+
+- Python.
+- Django.
+- SQLite.
+- HTML.
+- CSS.
+- Django Admin.
+
+9. PAGES PRINCIPALES
+
+- Accueil.
+- Catalogue.
+- Comment ca marche.
+- Inscription.
+- Connexion.
+- Panier.
+- Paiement.
+- Confirmation de commande.
+- Mes commandes.
+- Espace farmer.
+- Commandes recues.
+- Dashboard admin.
+- Admin Django.
+
+10. REGLES DE GESTION
+
+- Un produit appartient a un agriculteur.
+- Un client peut passer plusieurs commandes.
+- Une commande contient plusieurs produits.
+- Le stock diminue apres validation.
+- Le paiement par carte marque la commande comme payee.
+- Le paiement a la livraison marque la commande comme en attente.
+- Le bon PDF est genere apres finalisation.
+- Un agriculteur gere uniquement ses propres produits.
+
+11. TESTS A EFFECTUER
+
+- Creer un compte client.
+- Creer un compte agriculteur.
+- Ajouter un produit avec image.
+- Modifier un produit.
+- Supprimer un produit.
+- Ajouter un produit au panier.
+- Modifier les quantites.
+- Finaliser une commande.
+- Tester le paiement a la livraison.
+- Tester le paiement par carte simule.
+- Telecharger le bon d'achat PDF.
+- Verifier la baisse du stock.
+- Verifier le dashboard client.
+- Verifier le dashboard agriculteur.
+- Verifier le dashboard admin.
+
+12. CONCLUSION
+
+Farm2Door est une application web complete pour un PFA de marketplace agricole locale. Elle couvre le parcours client, le parcours agriculteur et le suivi administrateur. Le projet peut evoluer avec le paiement reel, les notifications, les categories, les avis clients et le suivi de livraison.

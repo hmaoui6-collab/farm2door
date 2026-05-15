@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm2Door</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="navbar">
+        <a class="logo" href="{% url 'home' %}">Farm2Door</a>
+        <nav class="nav-links">
+            <a href="{% url 'products' %}">Produits</a>
+            <a href="{% url 'about' %}">Comment ca marche</a>
+            <a href="{% url 'cart' %}">Panier</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'my_orders' %}">Mes commandes</a>
+                {% if user.is_staff %}
+                    <a href="{% url 'admin_dashboard' %}">Admin</a>
+                    <a href="{% url 'admin_products' %}">Produits admin</a>
+                {% endif %}
+                {% if user.profile and user.profile.user_type == 'farmer' %}
+                    <a href="{% url 'dashboard' %}">Espace fermier</a>
+                {% endif %}
+                <a href="{% url 'logout' %}">Deconnexion</a>
+            {% else %}
+                <a href="{% url 'login' %}">Connexion</a>
+                <a class="nav-cta" href="{% url 'register' %}">Creer un compte</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p class="message {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+</body>
+</html>

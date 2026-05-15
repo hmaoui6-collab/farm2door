@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Commande</p>
+    <h1>Votre panier</h1>
+    <p>Verifiez les quantites avant de confirmer votre commande.</p>
+</section>
+
+<section class="cart-layout">
+    <div class="cart-list">
+        {% for product in products %}
+            <article class="cart-item">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% endif %}
+                <div class="cart-info">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.price }} DH par unite</p>
+                </div>
+                <div class="quantity-control">
+                    <a href="{% url 'decrease_quantity' product.id %}">-</a>
+                    <span>{{ product.qty }}</span>
+                    <a href="{% url 'increase_quantity' product.id %}">+</a>
+                </div>
+                <strong>{{ product.total }} DH</strong>
+                <a class="remove-link" href="{% url 'remove_from_cart' product.id %}">Retirer</a>
+            </article>
+        {% empty %}
+            <p class="empty-state">Votre panier est vide.</p>
+        {% endfor %}
+    </div>
+
+    <aside class="summary-panel">
+        <h2>Resume</h2>
+        <div class="summary-row">
+            <span>Total</span>
+            <strong>{{ total }} DH</strong>
+        </div>
+        {% if products %}
+            <a class="btn primary full" href="{% url 'checkout' %}">Passer au paiement</a>
+        {% else %}
+            <a class="btn secondary full" href="{% url 'products' %}">Voir les produits</a>
+        {% endif %}
+    </aside>
+</section>
+{% endblock %}

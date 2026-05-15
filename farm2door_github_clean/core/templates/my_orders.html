@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Suivi client</p>
+    <h1>Mes commandes</h1>
+    <p>Retrouvez l'historique de vos commandes Farm2Door.</p>
+</section>
+
+<section class="dashboard">
+    <div class="stats-grid">
+        <article class="stat-card">
+            <span>Total depense</span>
+            <strong>{{ total_spent }} DH</strong>
+        </article>
+        <article class="stat-card">
+            <span>Commandes payees</span>
+            <strong>{{ paid_orders }}</strong>
+        </article>
+        <article class="stat-card">
+            <span>Paiement en attente</span>
+            <strong>{{ pending_orders }}</strong>
+        </article>
+    </div>
+
+    <div class="table-list">
+        {% for order in orders %}
+            <article class="table-row order-row">
+                <div>
+                    <h3>Commande #{{ order.id }}</h3>
+                    <p>
+                        {{ order.created_at|date:"d/m/Y H:i" }} -
+                        Paiement: {{ order.get_payment_status_display }} -
+                        Livraison: {{ order.delivery_address|truncatechars:45 }}
+                    </p>
+                </div>
+                <div class="row-actions">
+                    <strong>{{ order.total }} DH</strong>
+                    <a class="btn secondary small" href="{% url 'purchase_order_pdf' order.id %}">Bon PDF</a>
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-state">Vous n'avez pas encore passe de commande.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

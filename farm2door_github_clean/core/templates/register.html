@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-page">
+    <form class="auth-card" method="POST">
+        {% csrf_token %}
+        <p class="eyebrow">Inscription</p>
+        <h1>Creer un compte</h1>
+
+        <label for="username">Nom d'utilisateur</label>
+        <input id="username" type="text" name="username" required>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" required>
+
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" name="password" required>
+
+        <label for="user_type">Role</label>
+        <select id="user_type" name="user_type" required>
+            <option value="customer">Client</option>
+            <option value="farmer">Agriculteur</option>
+        </select>
+
+        <button class="btn primary full" type="submit">Creer mon compte</button>
+        <p class="form-note">Deja inscrit ? <a href="{% url 'login' %}">Connexion</a></p>
+    </form>
+</section>
+{% endblock %}

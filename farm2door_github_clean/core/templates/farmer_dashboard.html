@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Espace agriculteur</p>
+    <h1>Tableau de bord</h1>
+    <p>Gerez vos produits, votre stock et vos ventes.</p>
+</section>
+
+<section class="dashboard">
+    <div class="stats-grid">
+        <article class="stat-card">
+            <span>Produits</span>
+            <strong>{{ products.count }}</strong>
+        </article>
+        <article class="stat-card">
+            <span>Commandes</span>
+            <strong>{{ total_orders }}</strong>
+        </article>
+        <article class="stat-card">
+            <span>Revenus</span>
+            <strong>{{ total_revenue }} DH</strong>
+        </article>
+    </div>
+
+    <div class="premium-grid">
+        <article class="insight-panel">
+            <span class="eyebrow">Performance</span>
+            <h2>Produit le plus vendu</h2>
+            {% if best_product %}
+                <strong>{{ best_product }}</strong>
+                <p>Ce produit attire le plus de commandes pour votre ferme.</p>
+            {% else %}
+                <p>Aucune vente pour le moment. Ajoutez vos meilleurs produits et partagez le catalogue.</p>
+            {% endif %}
+        </article>
+
+        <article class="insight-panel">
+            <span class="eyebrow">Stock</span>
+            <h2>Alertes stock</h2>
+            {% for product in low_stock_products %}
+                <p class="stock-alert">{{ product.name }}: {{ product.stock }} restant(s)</p>
+            {% empty %}
+                <p>Tous vos produits ont un stock confortable.</p>
+            {% endfor %}
+        </article>
+    </div>
+
+    <div class="section-heading">
+        <h2>Mes produits</h2>
+        <div class="row-actions">
+            <a class="btn secondary" href="{% url 'farmer_orders' %}">Commandes recues</a>
+            <a class="btn primary" href="{% url 'add_product' %}">Ajouter un produit</a>
+        </div>
+    </div>
+
+    <div class="table-list">
+        {% for product in products %}
+            <article class="table-row">
+                <div>
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.price }} DH - Stock: {{ product.stock }}</p>
+                </div>
+                <div class="row-actions">
+                    <a class="btn secondary small" href="{% url 'edit_product' product.id %}">Modifier</a>
+                    <a class="btn danger small" href="{% url 'delete_product' product.id %}">Supprimer</a>
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-state">Vous n'avez pas encore ajoute de produit.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

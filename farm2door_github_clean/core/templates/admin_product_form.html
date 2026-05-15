@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-page">
+    <form class="auth-card" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="eyebrow">Administration</p>
+        <h1>{{ title }}</h1>
+
+        <label for="farmer">Agriculteur</label>
+        <select id="farmer" name="farmer" required>
+            <option value="">Choisir un agriculteur</option>
+            {% for farmer in farmers %}
+                <option value="{{ farmer.id }}" {% if product and product.farmer.id == farmer.id %}selected{% endif %}>
+                    {{ farmer.username }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="name">Nom du produit</label>
+        <input id="name" type="text" name="name" value="{{ product.name|default:'' }}" required>
+
+        <label for="price">Prix en DH</label>
+        <input id="price" type="number" name="price" min="0" step="0.01" value="{{ product.price|default:'' }}" required>
+
+        <label for="stock">Stock disponible</label>
+        <input id="stock" type="number" name="stock" min="0" value="{{ product.stock|default:'' }}" required>
+
+        <label for="image">Image</label>
+        <input id="image" type="file" name="image" accept="image/*">
+
+        <button class="btn primary full" type="submit">Enregistrer</button>
+        <a class="btn secondary full" href="{% url 'admin_products' %}">Retour</a>
+    </form>
+</section>
+{% endblock %}

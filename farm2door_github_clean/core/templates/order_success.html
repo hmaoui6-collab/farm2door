@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="success-page">
+    <div class="success-panel">
+        <p class="eyebrow">Commande validee</p>
+        <h1>Merci pour votre commande</h1>
+        <p>Votre commande numero {{ order.id }} a ete enregistree avec succes.</p>
+        <div class="success-items">
+            {% for item in items %}
+                <span>{{ item.quantity }} x {{ item.product.name }}</span>
+            {% endfor %}
+        </div>
+        <strong>Total: {{ order.total }} DH</strong>
+        <p>Statut paiement: {{ order.get_payment_status_display }}</p>
+        <p>Adresse de livraison: {{ order.delivery_address }}</p>
+        <a class="btn primary" href="{% url 'purchase_order_pdf' order.id %}">Telecharger le bon d'achat PDF</a>
+        <a class="btn primary" href="{% url 'my_orders' %}">Voir mes commandes</a>
+        <a class="btn secondary" href="{% url 'products' %}">Continuer les achats</a>
+    </div>
+</section>
+{% endblock %}

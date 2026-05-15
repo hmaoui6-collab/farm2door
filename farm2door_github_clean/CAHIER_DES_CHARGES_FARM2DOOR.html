@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Cahier des charges - Farm2Door</title>
+    <style>
+        body {
+            color: #172033;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            margin: 44px auto;
+            max-width: 900px;
+        }
+        h1, h2, h3 {
+            color: #14532d;
+        }
+        h1 {
+            border-bottom: 3px solid #227447;
+            padding-bottom: 14px;
+        }
+        h2 {
+            border-bottom: 1px solid #d9e2dc;
+            margin-top: 34px;
+            padding-bottom: 8px;
+        }
+        ul {
+            padding-left: 24px;
+        }
+        .cover {
+            border: 1px solid #d9e2dc;
+            border-radius: 8px;
+            margin-bottom: 34px;
+            padding: 26px;
+        }
+        .muted {
+            color: #667085;
+        }
+        code {
+            background: #f6f8f4;
+            border: 1px solid #d9e2dc;
+            border-radius: 4px;
+            padding: 2px 5px;
+        }
+        @media print {
+            body {
+                margin: 20mm;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cover">
+        <h1>Cahier des charges - Farm2Door</h1>
+        <p><strong>Projet :</strong> Farm2Door</p>
+        <p><strong>Type :</strong> Projet de Fin d'Annee</p>
+        <p><strong>Domaine :</strong> Marketplace agricole locale</p>
+        <p><strong>Technologies :</strong> Django, Python, SQLite, HTML, CSS</p>
+        <p class="muted">Document sans diagrammes.</p>
+    </div>
+
+    <h2>1. Introduction</h2>
+    <p>Farm2Door est une application web qui met en relation les agriculteurs locaux et les clients. L'objectif principal est de faciliter la vente directe des produits agricoles frais, avec une experience simple pour le client et un espace de gestion pratique pour l'agriculteur.</p>
+
+    <h2>2. Contexte du projet</h2>
+    <p>Les petits producteurs agricoles rencontrent souvent des difficultes pour vendre leurs produits directement aux consommateurs. Les clients cherchent une solution simple pour acceder a des produits frais, connaitre les prix, verifier la disponibilite et passer commande rapidement.</p>
+
+    <h2>3. Problematique</h2>
+    <p>Comment creer une application web permettant aux agriculteurs de publier leurs produits, aux clients de commander facilement, a l'administrateur de suivre l'activite et au systeme de generer une preuve d'achat claire apres chaque commande ?</p>
+
+    <h2>4. Objectifs</h2>
+    <ul>
+        <li>Creer une page d'accueil claire et professionnelle.</li>
+        <li>Afficher un catalogue de produits agricoles.</li>
+        <li>Permettre l'inscription et la connexion des utilisateurs.</li>
+        <li>Gerer les roles client et agriculteur.</li>
+        <li>Permettre aux agriculteurs d'ajouter, modifier et supprimer des produits.</li>
+        <li>Permettre aux clients de gerer un panier.</li>
+        <li>Ajouter une etape de paiement simule.</li>
+        <li>Generer un bon d'achat PDF apres finalisation.</li>
+        <li>Fournir des dashboards client, farmer et admin.</li>
+    </ul>
+
+    <h2>5. Acteurs</h2>
+    <h3>Client</h3>
+    <p>Consulte les produits, ajoute au panier, choisit le paiement, finalise une commande, consulte son historique et telecharge ses bons d'achat.</p>
+    <h3>Agriculteur</h3>
+    <p>Ajoute ses produits, gere les images, les prix et les stocks, consulte les commandes recues et suit ses revenus.</p>
+    <h3>Administrateur</h3>
+    <p>Suit les utilisateurs, produits, commandes, revenus et peut gerer les donnees depuis Django Admin.</p>
+
+    <h2>6. Besoins fonctionnels</h2>
+    <ul>
+        <li>Authentification et gestion des roles.</li>
+        <li>Gestion des produits et images.</li>
+        <li>Catalogue produits.</li>
+        <li>Panier avec quantites et total.</li>
+        <li>Paiement a la livraison ou par carte simulee.</li>
+        <li>Creation de commandes.</li>
+        <li>Mise a jour automatique du stock.</li>
+        <li>Generation de bon d'achat PDF.</li>
+        <li>Historique client.</li>
+        <li>Commandes recues farmer.</li>
+        <li>Dashboard administrateur.</li>
+    </ul>
+
+    <h2>7. Besoins non fonctionnels</h2>
+    <ul>
+        <li>Interface simple et ergonomique.</li>
+        <li>Pages protegees selon le role de l'utilisateur.</li>
+        <li>Application rapide en environnement local.</li>
+        <li>Code organise selon la structure Django.</li>
+        <li>Projet facile a presenter et a maintenir.</li>
+    </ul>
+
+    <h2>8. Technologies utilisees</h2>
+    <ul>
+        <li>Backend : Python, Django.</li>
+        <li>Base de donnees : SQLite.</li>
+        <li>Frontend : HTML, CSS, templates Django.</li>
+        <li>Administration : Django Admin.</li>
+        <li>Media : images produits stockees dans le dossier media.</li>
+    </ul>
+
+    <h2>9. Pages principales</h2>
+    <ul>
+        <li>Accueil</li>
+        <li>Catalogue</li>
+        <li>Comment ca marche</li>
+        <li>Inscription</li>
+        <li>Connexion</li>
+        <li>Panier</li>
+        <li>Paiement</li>
+        <li>Confirmation de commande</li>
+        <li>Mes commandes</li>
+        <li>Espace farmer</li>
+        <li>Commandes recues</li>
+        <li>Dashboard admin</li>
+        <li>Admin Django</li>
+    </ul>
+
+    <h2>10. Regles de gestion</h2>
+    <ul>
+        <li>Un produit appartient a un agriculteur.</li>
+        <li>Un client peut passer plusieurs commandes.</li>
+        <li>Une commande contient plusieurs produits.</li>
+        <li>Le stock diminue apres validation.</li>
+        <li>Le paiement par carte marque la commande comme payee.</li>
+        <li>Le paiement a la livraison marque la commande comme en attente.</li>
+        <li>Le bon PDF est genere apres finalisation.</li>
+        <li>Un agriculteur gere uniquement ses propres produits.</li>
+    </ul>
+
+    <h2>11. Tests a effectuer</h2>
+    <ul>
+        <li>Creer un compte client et farmer.</li>
+        <li>Ajouter un produit avec image.</li>
+        <li>Modifier et supprimer un produit.</li>
+        <li>Ajouter des produits au panier.</li>
+        <li>Finaliser une commande.</li>
+        <li>Tester le paiement a la livraison.</li>
+        <li>Tester le paiement par carte simulee.</li>
+        <li>Telecharger le bon d'achat PDF.</li>
+        <li>Verifier les dashboards.</li>
+    </ul>
+
+    <h2>12. Conclusion</h2>
+    <p>Farm2Door est une application web complete pour un PFA de marketplace agricole locale. Elle couvre le parcours client, le parcours agriculteur et le suivi administrateur. Le projet peut evoluer vers le paiement reel, les notifications, les categories, les avis clients et le suivi de livraison.</p>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Ventes</p>
+    <h1>Commandes recues</h1>
+    <p>Suivez les produits commandes chez vous par les clients.</p>
+</section>
+
+<section class="dashboard">
+    <div class="table-list">
+        {% for item in order_items %}
+            <article class="table-row order-row">
+                <div>
+                    <h3>{{ item.quantity }} x {{ item.product.name }}</h3>
+                    <p>
+                        Commande #{{ item.order.id }} -
+                        Client: {{ item.order.customer.username }} -
+                        {{ item.order.created_at|date:"d/m/Y H:i" }}
+                    </p>
+                </div>
+                <div class="row-actions">
+                    <strong>{{ item.product.price }} DH / unite</strong>
+                    <a class="btn secondary small" href="{% url 'purchase_order_pdf' item.order.id %}">Bon PDF</a>
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-state">Aucune commande recue pour le moment.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

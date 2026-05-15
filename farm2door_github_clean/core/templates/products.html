@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Catalogue</p>
+    <h1>Tous les produits</h1>
+    <p>Choisissez vos produits frais et ajoutez-les au panier.</p>
+</section>
+
+<section class="section compact">
+    <div class="product-grid">
+        {% for product in products %}
+            <article class="product-card">
+                <div class="product-media">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span class="image-fallback">Photo indisponible</span>
+                    {% else %}
+                        <span>Image bientot disponible</span>
+                    {% endif %}
+                </div>
+                <div class="product-body">
+                    <h3>{{ product.name }}</h3>
+                    <p>Vendu par {{ product.farmer.username }}</p>
+                    <div class="product-meta">
+                        <strong>{{ product.price }} DH</strong>
+                        <span>{{ product.stock }} en stock</span>
+                    </div>
+                    {% if product.stock > 0 %}
+                        <a class="btn small" href="{% url 'add_to_cart' product.id %}">Ajouter au panier</a>
+                    {% else %}
+                        <span class="badge muted">Rupture de stock</span>
+                    {% endif %}
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-state">Aucun produit n'a encore ete publie.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

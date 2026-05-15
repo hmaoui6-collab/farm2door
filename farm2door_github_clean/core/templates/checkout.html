@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Paiement</p>
+    <h1>Finaliser la commande</h1>
+    <p>Choisissez un mode de paiement pour generer votre bon d'achat.</p>
+</section>
+
+<section class="checkout-layout">
+    <form class="payment-panel" method="POST">
+        {% csrf_token %}
+        <h2>Mode de paiement</h2>
+
+        <div class="delivery-fields">
+            <label for="delivery_address">Adresse de livraison</label>
+            <textarea id="delivery_address" name="delivery_address" rows="4" placeholder="Ex: Rue ..., quartier ..., ville ..." required></textarea>
+            <small>Cette adresse sera ajoutee au bon d'achat.</small>
+        </div>
+
+        <label class="payment-option">
+            <input type="radio" name="payment_method" value="cash" checked>
+            <span>
+                <strong>Paiement a la livraison</strong>
+                <small>La commande est enregistree, le paiement reste en attente.</small>
+            </span>
+        </label>
+
+        <label class="payment-option">
+            <input type="radio" name="payment_method" value="card">
+            <span>
+                <strong>Carte bancaire</strong>
+                <small>Cliquez ici pour afficher les champs de la carte.</small>
+            </span>
+        </label>
+
+        <div class="card-fields" id="card-fields">
+            <div class="payment-card-preview">
+                <span>Farm2Door Pay</span>
+                <strong>**** **** **** 2458</strong>
+                <small>Paiement securise simule</small>
+            </div>
+
+            <div class="field-group">
+                <label for="card_name">Nom sur la carte</label>
+                <input id="card_name" type="text" name="card_name" placeholder="Ex: Ahmed Alami" autocomplete="cc-name">
+            </div>
+
+            <div class="field-group">
+                <label for="card_number">Numero de carte</label>
+                <input id="card_number" type="text" name="card_number" placeholder="0000 0000 0000 0000" inputmode="numeric" autocomplete="cc-number">
+            </div>
+
+            <div class="field-row">
+                <div class="field-group">
+                    <label for="card_expiry">Expiration</label>
+                    <input id="card_expiry" type="text" name="card_expiry" placeholder="MM/AA" autocomplete="cc-exp">
+                </div>
+                <div class="field-group">
+                    <label for="card_cvc">CVC</label>
+                    <input id="card_cvc" type="text" name="card_cvc" placeholder="123" inputmode="numeric" autocomplete="cc-csc">
+                </div>
+            </div>
+        </div>
+
+        <button class="btn primary full" type="submit">Finaliser l'achat</button>
+    </form>
+
+    <aside class="summary-panel">
+        <h2>Resume</h2>
+        {% for product in products %}
+            <div class="summary-row">
+                <span>{{ product.qty }} x {{ product.name }}</span>
+                <strong>{{ product.total }} DH</strong>
+            </div>
+        {% endfor %}
+        <div class="summary-row total-row">
+            <span>Total</span>
+            <strong>{{ total }} DH</strong>
+        </div>
+    </aside>
+</section>
+
+<script>
+    const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+    const cardFields = document.querySelector('#card-fields');
+    const requiredCardInputs = cardFields.querySelectorAll('input');
+
+    function updateCardFields() {
+        const isCard = document.querySelector('input[name="payment_method"]:checked').value === 'card';
+        cardFields.classList.toggle('is-visible', isCard);
+        requiredCardInputs.forEach((input) => {
+            input.required = isCard;
+        });
+    }
+
+    paymentRadios.forEach((radio) => {
+        radio.addEventListener('change', updateCardFields);
+    });
+    updateCardFields();
+</script>
+{% endblock %}

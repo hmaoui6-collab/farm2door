@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Administration</p>
+    <h1>Gestion des produits</h1>
+    <p>Ajoutez, modifiez ou supprimez les produits de tous les agriculteurs.</p>
+</section>
+
+<section class="dashboard">
+    <div class="section-heading">
+        <h2>Produits du site</h2>
+        <a class="btn primary" href="{% url 'admin_add_product' %}">Ajouter un produit</a>
+    </div>
+
+    <div class="table-list">
+        {% for product in products %}
+            <article class="table-row">
+                <div>
+                    <h3>{{ product.name }}</h3>
+                    <p>Farmer: {{ product.farmer.username }} - {{ product.price }} DH - Stock: {{ product.stock }}</p>
+                </div>
+                <div class="row-actions">
+                    <a class="btn secondary small" href="{% url 'admin_edit_product' product.id %}">Modifier</a>
+                    <a class="btn danger small" href="{% url 'admin_delete_product' product.id %}">Supprimer</a>
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-state">Aucun produit pour le moment.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

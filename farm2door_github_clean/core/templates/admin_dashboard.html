@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Administration</p>
+    <h1>Vue globale</h1>
+    <p>Suivi general de la plateforme Farm2Door.</p>
+</section>
+
+<section class="dashboard">
+    <div class="stats-grid admin-stats">
+        <article class="stat-card">
+            <span>Utilisateurs</span>
+            <strong>{{ total_users }}</strong>
+        </article>
+        <article class="stat-card">
+            <span>Agriculteurs</span>
+            <strong>{{ total_farmers }}</strong>
+        </article>
+        <article class="stat-card">
+            <span>Clients</span>
+            <strong>{{ total_customers }}</strong>
+        </article>
+        <article class="stat-card">
+            <span>Produits</span>
+            <strong>{{ total_products }}</strong>
+        </article>
+        <article class="stat-card">
+            <span>Commandes</span>
+            <strong>{{ total_orders }}</strong>
+        </article>
+        <article class="stat-card">
+            <span>Revenu total</span>
+            <strong>{{ revenue }} DH</strong>
+        </article>
+        <article class="stat-card">
+            <span>Gains encaisses</span>
+            <strong>{{ paid_revenue }} DH</strong>
+        </article>
+        <article class="stat-card">
+            <span>Paiements en attente</span>
+            <strong>{{ pending_revenue }} DH</strong>
+        </article>
+    </div>
+
+    <div class="section-heading">
+        <h2>Dernieres commandes</h2>
+        <a class="btn primary" href="{% url 'admin_products' %}">Gerer les produits</a>
+    </div>
+
+    <div class="table-list">
+        {% for order in orders %}
+            <article class="table-row">
+                <div>
+                    <h3>Commande #{{ order.id }}</h3>
+                    <p>
+                        Client: {{ order.customer.username }} -
+                        {{ order.created_at|date:"d/m/Y H:i" }} -
+                        {{ order.get_payment_status_display }}
+                    </p>
+                </div>
+                <div class="row-actions">
+                    <strong>{{ order.total }} DH</strong>
+                    <a class="btn secondary small" href="{% url 'purchase_order_pdf' order.id %}">Bon PDF</a>
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-state">Aucune commande pour le moment.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

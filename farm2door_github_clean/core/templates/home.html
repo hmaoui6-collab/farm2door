@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <p class="eyebrow">Marche agricole local</p>
+        <h1>Des produits frais, du champ a votre porte.</h1>
+        <p>
+            Farm2Door connecte les clients avec les agriculteurs locaux pour acheter
+            des legumes frais, suivre le panier et passer commande simplement.
+        </p>
+        <div class="hero-actions">
+            <a class="btn primary" href="{% url 'products' %}">Voir les produits</a>
+            {% if not user.is_authenticated %}
+                <a class="btn secondary" href="{% url 'register' %}">Commencer</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="hero-preview">
+        {% for product in products|slice:":4" %}
+            <article class="mini-product">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% endif %}
+                <div>
+                    <strong>{{ product.name }}</strong>
+                    <span>{{ product.price }} DH</span>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Selection du marche</p>
+        <h2>Produits disponibles</h2>
+        <a href="{% url 'products' %}">Tout voir</a>
+    </div>
+
+    <div class="product-grid">
+        {% for product in products %}
+            <article class="product-card">
+                <div class="product-media">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span class="image-fallback">Photo indisponible</span>
+                    {% else %}
+                        <span>Image bientot disponible</span>
+                    {% endif %}
+                </div>
+                <div class="product-body">
+                    <h3>{{ product.name }}</h3>
+                    <p>Vendu par {{ product.farmer.username }}</p>
+                    <div class="product-meta">
+                        <strong>{{ product.price }} DH</strong>
+                        <span>{{ product.stock }} en stock</span>
+                    </div>
+                    <a class="btn small" href="{% url 'add_to_cart' product.id %}">Ajouter</a>
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-state">Aucun produit pour le moment.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="workflow-section">
+    <div class="workflow-header">
+        <p class="eyebrow">Experience Farm2Door</p>
+        <h2>Pourquoi choisir Farm2Door ?</h2>
+        <p>Une plateforme claire pour acheter frais, vendre local et garder une preuve d'achat.</p>
+    </div>
+
+    <div class="workflow-grid">
+        <article class="workflow-step">
+            <span>Pour le farmer</span>
+            <h3>Gestion du stock</h3>
+            <p>Le farmer publie ses produits, prix, images et stock disponible.</p>
+        </article>
+        <article class="workflow-step">
+            <span>Pour le client</span>
+            <h3>Achat rapide</h3>
+            <p>Le client ajoute au panier, choisit le paiement et suit ses commandes.</p>
+        </article>
+        <article class="workflow-step">
+            <span>Apres paiement</span>
+            <h3>Bon PDF</h3>
+            <p>Un bon d'achat professionnel est genere automatiquement apres la commande.</p>
+        </article>
+    </div>
+</section>
+{% endblock %}
